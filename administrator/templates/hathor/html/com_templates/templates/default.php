@@ -80,21 +80,28 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 		<tbody>
 		<?php foreach ($this->items as $i => $item) : ?>
 			<tr class="row<?php echo $i % 2; ?>">
-		            <?php
-		                    $xmldata = new JRegistry;
-		                    if (!$item->xmldata){
-		                        $xmldata->set("version", "--");
-		                        $xmldata->set("creationDate", "--");
-		                    }else{
-		                        $xmldata->loadObject($item->xmldata);
-		                        if (!$xmldata->get('version')){
-		                            $xmldata->set("version", '--');
-		                        }
-		                        if (!$xmldata->get('creationDate')){
-		                            $xmldata->set("creationDate", '--');
-		                        }
-		                    }
-		            ?>
+				<?php
+				$xmldata = new JRegistry;
+
+				if (!$item->xmldata) {
+					$xmldata->set("version", "--");
+					$xmldata->set("creationDate", "--");
+				}
+				else
+				{
+					$xmldata->loadObject($item->xmldata);
+
+					if (!$xmldata->get('version'))
+					{
+						$xmldata->set("version", '--');
+					}
+
+					if (!$xmldata->get('creationDate'))
+					{
+						$xmldata->set("creationDate", '--');
+					}
+				}
+				?>
 				<td class="center">
 					<?php echo JHtml::_('templates.thumb', $item->element, $item->client_id); ?>
 				</td>
